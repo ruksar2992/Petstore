@@ -1,6 +1,5 @@
 package com.example.petstore.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +15,12 @@ import com.example.petstore.service.PetService;
 public class PetController {
 
 	@Autowired
-    PetService petService;
+	PetService petService;
 
- 
-
-    @GetMapping("/pet")
-    public ResponseEntity<PetListResponseDto> searchPets(@RequestParam("petName") String petName) throws InvalidCredentialsException {
-
- 
-
-        PetListResponseDto petDetailsResponse = petService.getPetsByPetName(petName);
-
- 
-
-        return new ResponseEntity<PetListResponseDto>(petDetailsResponse, HttpStatus.OK);
-
- 
-
-    }
-
- 
+	@GetMapping("/pet")
+	public ResponseEntity<PetListResponseDto> searchPets(@RequestParam("petName") String petName)throws InvalidCredentialsException {
+		PetListResponseDto petDetailsResponse = petService.getPetsByPetName(petName);
+		return new ResponseEntity<PetListResponseDto>(petDetailsResponse, HttpStatus.OK);
+	}
 
 }

@@ -12,5 +12,7 @@ import com.example.petstore.model.Pet;
 public interface PetDao extends CrudRepository<Pet, Integer> {
 	@Query("SELECT e FROM Pet e WHERE e.petName LIKE %?1%")
     Optional<List<Pet>> findAllByPetName(String petName);
+
+	Pet findAllByPetId(int petId);
     
 }

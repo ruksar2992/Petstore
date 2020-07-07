@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.petstore.dao.PetDao;
 import com.example.petstore.dto.PetDetailsResponseDto;
 import com.example.petstore.dto.PetListResponseDto;
+import com.example.petstore.enumpack.Status;
 import com.example.petstore.exception.InvalidCredentialsException;
 import com.example.petstore.model.Pet;
 import com.example.petstore.service.PetService;
@@ -30,7 +31,7 @@ public class PetServiceImpl implements PetService{
         }
       
          List<PetDetailsResponseDto> petList= petDetails.get().stream().map(pet -> getPetDetailsResponseDto(pet)).collect(Collectors.toList());
-         petListResponseDto.setMessage("plese find list of available dogs");
+         petListResponseDto.setMessage("please find list of available dogs");
            petListResponseDto.setStatusCode(HttpStatus.OK.value());
           petListResponseDto.setPetDetailsResponseDto(petList);
             return petListResponseDto;
@@ -47,7 +48,13 @@ public class PetServiceImpl implements PetService{
 
 
 
-
+    
+	public void updatePetStatus(int petId) {
+		Pet pet = petDao.findAllByPetId(petId);
+        pet.setStatus(Status.Booked);
+        petDao.save(pet);
+		
+	}
 
 }
  
