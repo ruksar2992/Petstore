@@ -16,6 +16,13 @@ public class Pet {
 	private double price;
 	@Enumerated(value = EnumType.STRING)
 	private Status status;
+    private String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getPetId() {
 		return petId;
 	}

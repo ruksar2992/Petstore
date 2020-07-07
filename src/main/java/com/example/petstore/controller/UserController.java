@@ -12,9 +12,6 @@ import com.example.petstore.dto.UserDto;
 import com.example.petstore.exception.InvalidCredentialsException;
 import com.example.petstore.service.UserService;
 
-
-
-
 @RestController
 public class UserController {
 
@@ -25,6 +22,7 @@ public class UserController {
 
 	/**
 	 * This method is used to register the user
+	 * 
 	 * @param userDto
 	 * @return String
 	 */
@@ -36,7 +34,8 @@ public class UserController {
 	}
 
 	/**
-	 * This method is used to authenticate the user 
+	 * This method is used to authenticate the user
+	 * 
 	 * @param loginDto
 	 * @return String
 	 * @throws InvalidCredentialsException
@@ -45,12 +44,12 @@ public class UserController {
 	public String authenticateUser(@RequestBody LoginDto loginDto) throws InvalidCredentialsException {
 		logger.info("authenticating the user");
 		boolean isExists;
-		isExists=userService.authenticateUser(loginDto.getUserName(),loginDto.getPassword());
+		isExists = userService.authenticateUser(loginDto.getUserName(), loginDto.getPassword());
 		if (isExists)
 			return "logged in successfully";
 		else {
 			return "Credentials are incorrect";
 		}
 	}
-	
+
 }

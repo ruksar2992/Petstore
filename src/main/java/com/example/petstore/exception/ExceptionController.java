@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 	
 
-	@ExceptionHandler(value = InvalidCredentialsException.class)
-	public ResponseEntity<ErrorResponse> exceptionHandler(InvalidCredentialsException invalidCredentialsException) {
+    @ExceptionHandler(value = InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> exception(InvalidCredentialsException exception) {
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatusCode(401);
-        errorResponse.setMessage(invalidCredentialsException.getMessage());
-        
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
+        errorResponse.setMessage(exception.getMessage());
+        errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
+       
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-
 }
+
+
+
