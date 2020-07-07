@@ -23,7 +23,17 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	
+	/**
+	 * This method is used to register the user
+	 * @param userDto
+	 * @return String
+	 */
+	@PostMapping("/users")
+	public String registerUser(@RequestBody UserDto userDto) {
+		logger.info("executing the registerUser Method");
+		userService.addUser(userDto);
+		return "user added successfully";
+	}
 
 	/**
 	 * This method is used to authenticate the user 
