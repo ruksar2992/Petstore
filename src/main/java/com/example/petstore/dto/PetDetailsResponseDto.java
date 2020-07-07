@@ -5,7 +5,21 @@ import com.example.petstore.enumpack.Status;
 public class PetDetailsResponseDto {
     
 		private int petId;  
-	    private double price;  
+	    private String petName;
+	    private String description;
+	    public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		public String getPetName() {
+			return petName;
+		}
+		public void setPetName(String petName) {
+			this.petName = petName;
+		}
+		private double price;  
 	    private Status status;
 		public int getPetId() {
 			return petId;

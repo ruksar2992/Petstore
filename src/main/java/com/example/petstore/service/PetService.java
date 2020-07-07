@@ -2,8 +2,10 @@ package com.example.petstore.service;
 
 import java.util.List;
 
-import com.example.petstore.dto.PetDetailsResponseDto;
+import com.example.petstore.dto.PetListResponseDto;
+import com.example.petstore.exception.InvalidCredentialsException;
 
 public interface PetService {
-    public List<PetDetailsResponseDto> getPetDetailsByPetName(String petName);
+
+	public PetListResponseDto getPetsByPetName(String petName) throws InvalidCredentialsException;
 }
