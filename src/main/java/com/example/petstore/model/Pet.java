@@ -48,6 +48,10 @@ public class Pet {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	public static Pet findAllByPetId(int petId2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

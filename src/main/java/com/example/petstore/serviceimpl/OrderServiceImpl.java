@@ -1,5 +1,6 @@
 package com.example.petstore.serviceimpl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -7,13 +8,18 @@ import org.springframework.stereotype.Service;
 import com.example.petstore.dao.OrderDao;
 import com.example.petstore.dao.UserDao;
 import com.example.petstore.dto.OrderResponseDto;
+import com.example.petstore.dto.OrdersDetailsListResponseDto;
+import com.example.petstore.dto.OrdersListResponseDto;
 import com.example.petstore.exception.InvalidCredentialsException;
 import com.example.petstore.model.OrderPets;
+import com.example.petstore.model.Pet;
 import com.example.petstore.model.User;
 import com.example.petstore.service.OrderService;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl   implements OrderService{
@@ -57,9 +63,50 @@ public class OrderServiceImpl   implements OrderService{
 
 
 
+	@Override
+    public OrdersDetailsListResponseDto getOrdersListByUserId(int userId) throws InvalidCredentialsException {
+       
+        OrdersDetailsListResponseDto ordersDetailsListResponseDto = new OrdersDetailsListResponseDto();
+            Optional<List<OrderPets>> petDetails=orderDao.findAllByUserId(userId);
+            if (!petDetails.isPresent()) {
+               
+                throw new InvalidCredentialsException("NoT a valid user.check userId");
+            }
+         
+             List<OrdersListResponseDto> orderPetList= petDetails.get().stream().map(orderPets -> getPetDetailsResponseDto(orderPets)).collect(Collectors.toList());
+             ordersDetailsListResponseDto.setMessage("order history of pets");
+             ordersDetailsListResponseDto.setStatusCode(HttpStatus.OK.value());
+             ordersDetailsListResponseDto.setOrdersListResponseDto(orderPetList);
+                return ordersDetailsListResponseDto;
+               
+          
+            
+        }
+        private OrdersListResponseDto getPetDetailsResponseDto(OrderPets orderPets) {
+           
+            OrdersListResponseDto ordersListResponseDto=new OrdersListResponseDto();
+            Pet petDetail=Pet.findAllByPetId(orderPets.getPetId());
+            ordersListResponseDto.setPetName(petDetail.getPetName());
+            ordersListResponseDto.setPrice(petDetail.getPrice());
+            ordersListResponseDto.setDescription(petDetail.getDescription());
+           
+            BeanUtils.copyProperties(orderPets, ordersListResponseDto);
+            return ordersListResponseDto;
+        }
+    }
+ 
+
+ 
+
+
+ 
+ 
+
+
+
 	
 
-}
+
  
 
 

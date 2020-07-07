@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.petstore.dto.OrderRequestDto;
 import com.example.petstore.dto.OrderResponseDto;
+import com.example.petstore.dto.OrdersDetailsListResponseDto;
 import com.example.petstore.exception.InvalidCredentialsException;
 import com.example.petstore.service.OrderService;
 @RestController
@@ -27,6 +28,26 @@ public class OrderController {
 
 
     }
+    
+    
+    @PostMapping("/users/{userId}/ordersList")
+        public ResponseEntity<OrdersDetailsListResponseDto> getOrdersList(@PathVariable("userId")int userId) throws InvalidCredentialsException {
+
+
+            OrdersDetailsListResponseDto ordersListDetails = orderService.getOrdersListByUserId(userId);
+
+
+            return new ResponseEntity<OrdersDetailsListResponseDto>(ordersListDetails, HttpStatus.OK);
+
+
+        }
+     
+
+
+
+
+
+
 
 
 }
