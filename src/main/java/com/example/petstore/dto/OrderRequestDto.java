@@ -14,6 +14,12 @@ public class OrderRequestDto {
     }
 
 
+	public void setUserId(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
  
 

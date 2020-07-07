@@ -7,4 +7,6 @@ public interface OrderService {
 
 	OrderResponseDto orderPetsByPetId(int userId, int petId) throws InvalidCredentialsException;
 
+	Object OrderPetsByPetId(int i, int j);
+
 }
